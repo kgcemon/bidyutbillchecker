@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-BidyutBillModel bidyutBillModelFromJson(String str) => BidyutBillModel.fromJson(json.decode(str));
-
 class BidyutBillModel {
   String message;
   List<List<CustomerInfo>> customerInfo;
@@ -19,7 +15,8 @@ class BidyutBillModel {
 
   factory BidyutBillModel.fromJson(Map<String, dynamic> json) => BidyutBillModel(
     message: json["message"],
-    customerInfo: List<List<CustomerInfo>>.from(json["customerInfo"].map((x) => List<CustomerInfo>.from(x.map((x) => CustomerInfo.fromJson(x))))),
+    customerInfo: List<List<CustomerInfo>>.from(json["customerInfo"].map((x) =>
+    List<CustomerInfo>.from(x.map((x) => CustomerInfo.fromJson(x))))),
     balanceInfo: BalanceInfo.fromJson(json["balanceInfo"]),
     billInfo: List<BillInfo>.from(json["billInfo"].map((x) => BillInfo.fromJson(x))),
     finalBalanceInfo: json["finalBalanceInfo"],
@@ -49,25 +46,25 @@ class BalanceInfo {
 
   factory BalanceInfo.fromJson(Map<String, dynamic> json) => BalanceInfo(
     result: List<Result>.from(json["Result"].map((x) => Result.fromJson(x))),
-    id: json["Id"],
-    status: json["Status"],
-    isCanceled: json["IsCanceled"],
-    isCompleted: json["IsCompleted"],
-    isCompletedSuccessfully: json["IsCompletedSuccessfully"],
-    creationOptions: json["CreationOptions"],
-    isFaulted: json["IsFaulted"],
+    id: json["Id"] ?? "",
+    status: json["Status"] ?? "",
+    isCanceled: json["IsCanceled"] ?? "",
+    isCompleted: json["IsCompleted"] ?? "",
+    isCompletedSuccessfully: json["IsCompletedSuccessfully"] ?? "",
+    creationOptions: json["CreationOptions"] ?? "",
+    isFaulted: json["IsFaulted"] ?? "",
   );
 }
 
 class Result {
-  int opnKwhSrRdng;
-  int consKwhSr;
-  int currentBill;
-  int arrearBill;
-  int totalBill;
-  int paidAmt;
-  int balance;
-  int invoiceNum;
+  dynamic opnKwhSrRdng;
+  dynamic consKwhSr;
+  dynamic currentBill;
+  dynamic arrearBill;
+  dynamic totalBill;
+  dynamic paidAmt;
+  dynamic balance;
+  dynamic invoiceNum;
 
   Result({
     required this.opnKwhSrRdng,
@@ -81,14 +78,14 @@ class Result {
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    opnKwhSrRdng: json["OPN_KWH_SR_RDNG"],
-    consKwhSr: json["CONS_KWH_SR"],
-    currentBill: json["CURRENT_BILL"],
-    arrearBill: json["ARREAR_BILL"],
-    totalBill: json["TOTAL_BILL"],
-    paidAmt: json["PAID_AMT"],
-    balance: json["BALANCE"],
-    invoiceNum: json["INVOICE_NUM"],
+    opnKwhSrRdng: json["OPN_KWH_SR_RDNG"] ?? "",
+    consKwhSr: json["CONS_KWH_SR"] ?? "",
+    currentBill: json["CURRENT_BILL"] ?? "",
+    arrearBill: json["ARREAR_BILL"] ?? "",
+    totalBill: json["TOTAL_BILL"] ?? "",
+    paidAmt: json["PAID_AMT"] ?? "",
+    balance: json["BALANCE"] ?? "",
+    invoiceNum: json["INVOICE_NUM"] ?? "",
   );
 }
 
@@ -101,16 +98,16 @@ class BillInfo {
   String billNo;
   String cd;
   String meterCondKwh;
-  int opnKwhSrRdng;
-  int consKwhSr;
-  double currentBill;
-  double arrearBill;
-  int totalBill;
+  dynamic opnKwhSrRdng;
+  dynamic consKwhSr;
+  dynamic currentBill;
+  dynamic arrearBill;
+  dynamic totalBill;
   DateTime invoiceDueDate;
-  int paidAmt;
+  dynamic paidAmt;
   DateTime? receiptDate;
-  int balance;
-  int invoiceNum;
+  dynamic balance;
+  dynamic invoiceNum;
 
   BillInfo({
     required this.consumerNumber,
@@ -134,24 +131,24 @@ class BillInfo {
   });
 
   factory BillInfo.fromJson(Map<String, dynamic> json) => BillInfo(
-    consumerNumber: json["CONSUMER_NUMBER"],
+    consumerNumber: json["CONSUMER_NUMBER"] ?? "",
     descr: descrValues.map[json["DESCR"]]!,
     customerName: customerNameValues.map[json["CUSTOMER_NAME"]]!,
     tariff: tariffValues.map[json["TARIFF"]]!,
     billMonth: DateTime.parse(json["BILL_MONTH"]),
-    billNo: json["BILL_NO"],
-    cd: json["CD"],
-    meterCondKwh: json["METER_COND_KWH"],
-    opnKwhSrRdng: json["OPN_KWH_SR_RDNG"],
-    consKwhSr: json["CONS_KWH_SR"],
-    currentBill: json["CURRENT_BILL"]?.toDouble(),
-    arrearBill: json["ARREAR_BILL"]?.toDouble(),
-    totalBill: json["TOTAL_BILL"],
+    billNo: json["BILL_NO"] ?? "",
+    cd: json["CD"] ?? "",
+    meterCondKwh: json["METER_COND_KWH"] ?? "",
+    opnKwhSrRdng: json["OPN_KWH_SR_RDNG"] ?? "",
+    consKwhSr: json["CONS_KWH_SR"] ?? "",
+    currentBill: json["CURRENT_BILL"]?.toDouble() ?? "",
+    arrearBill: json["ARREAR_BILL"]?.toDouble() ?? "",
+    totalBill: json["TOTAL_BILL"] ?? "",
     invoiceDueDate: DateTime.parse(json["INVOICE_DUE_DATE"]),
-    paidAmt: json["PAID_AMT"],
-    receiptDate: json["RECEIPT_DATE"] == null ? null : DateTime.parse(json["RECEIPT_DATE"]),
-    balance: json["BALANCE"],
-    invoiceNum: json["INVOICE_NUM"],
+    paidAmt: json["PAID_AMT"] ?? "",
+    receiptDate: json["RECEIPT_DATE"] == null ? null : DateTime.parse(json["RECEIPT_DATE"]) ,
+    balance: json["BALANCE"] ?? "",
+    invoiceNum: json["INVOICE_NUM"] ?? "",
   );
 }
 
@@ -199,7 +196,7 @@ class CustomerInfo {
   DateTime meterInstallDate;
   String meterStatus;
   String meterSide;
-  int overallMfKwh;
+  dynamic overallMfKwh;
   String usageType;
 
   CustomerInfo({
